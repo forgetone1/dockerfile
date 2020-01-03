@@ -1,0 +1,11 @@
+FROM microsoft/windowsservercore
+
+LABEL Description="Mariadb" Vendor="none" Version="10"
+
+#install mariadb
+ADD ["mariadb.tar","c:/"]
+RUN SETX /M Path %path%;c:\mariadb\bin	
+	
+VOLUME C:\\mariadb\\data
+EXPOSE 3306
+CMD [ "mysqld" ]
