@@ -1,3 +1,6 @@
 FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 RUN powershell -Command Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+RUN scoop install git
+RUN scoop bucket add extras
+RUN scoop install aria2

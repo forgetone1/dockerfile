@@ -1,0 +1,9 @@
+FROM jallytom/scoop
+
+RUN powershell -Command \
+		$ErrorActionPreference = 'Stop'; \
+		scoop install vcredist 
+
+RUN powershell -Command \
+		$ErrorActionPreference = 'Stop'; \
+		scoop install erlang

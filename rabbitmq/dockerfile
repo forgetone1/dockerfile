@@ -1,25 +1,25 @@
 FROM jallytom/erlang
 
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
-
 ####### PORTS ########
 #Main rabbitmq port
 EXPOSE 5672
-#port mapper daemon (epmd)
-EXPOSE 4369
-#inet_dist_listen
-EXPOSE 35197
+
 #rabbitmq management console
 EXPOSE 15672
 
-#ENV RABBITMQ_HOME "C:\rabbitmq"
-ENV RABBITMQ_CONFIG_FILE "C:\rabbitmq"
 #install rabbitmq
-COPY ["rabbitmq.config"," C:/"]
-ADD ["rabbitmq.tar","c:/"]
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
+RUN scoop install rabbitmq	
 
+#RUN ["cmd", "/C", "echo [{rabbit, [{loopback_users, []}]}].> C:\\Users\\ContainerAdministrator\\appdata\\Roaming\\RabbitMQ\\rabbitmq.config"]
+
+RUN rabbitmq-plugins enable rabbitmq_management --offline
 #set up the path to the config file
 VOLUME C:\\Users\\ContainerAdministrator\\appdata\\Roaming\\RabbitMQ
+
 #set the startup command to be rabbit
-CMD ["c:/rabbitmq/sbin/rabbitmq-server.bat"]
+CMD ["C:/Users/ContainerAdministrator/scoop/apps/rabbitmq/current/sbin/rabbitmq-server.bat"]
+
+#docker create --restart always -v D:\data\docker\rabbitmq\data:C:\Users\ContainerAdministrator\appdata\Roaming\RabbitMQ --name rabbitmq --restart=always -p 15672:15672 -p 5672:5672 jallytom/rabbitmq
+#docker create --restart always --name rabbitmq --restart=always -p 15672:15672 -p 5672:5672 jallytom/rabbitmq
