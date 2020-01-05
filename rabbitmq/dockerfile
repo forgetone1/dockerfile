@@ -1,25 +1,25 @@
 FROM jallytom/erlang
 
-####### PORTS ########
-#Main rabbitmq port
-EXPOSE 5672
-
-#rabbitmq management console
-EXPOSE 15672
-
-#install rabbitmq
+# setup powershell options for RUN commands
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-RUN scoop install rabbitmq	
+EXPOSE 5672 15672
 
-#RUN ["cmd", "/C", "echo [{rabbit, [{loopback_users, []}]}].> C:\\Users\\ContainerAdministrator\\appdata\\Roaming\\RabbitMQ\\rabbitmq.config"]
+# download and install erlang using silent install option, and remove installer when done
+# download and extract rabbitmq, and remove zip file when done
+# remove version from rabbitmq folder name
+RUN scoop install rabbitmq
 
-RUN rabbitmq-plugins enable rabbitmq_management --offline
-#set up the path to the config file
-VOLUME C:\\Users\\ContainerAdministrator\\appdata\\Roaming\\RabbitMQ
+VOLUME C:\\Users\\ContainerAdministrator\\appdata\\Roaming\\RabbitMQ\\db
 
-#set the startup command to be rabbit
-CMD ["C:/Users/ContainerAdministrator/scoop/apps/rabbitmq/current/sbin/rabbitmq-server.bat"]
+# enable managment plugin
+RUN c:\Users\ContainerAdministrator\scoop\apps\rabbitmq\current\sbin\rabbitmq-plugins.bat enable rabbitmq_management --offline
 
-#docker create --restart always -v D:\data\docker\rabbitmq\data:C:\Users\ContainerAdministrator\appdata\Roaming\RabbitMQ --name rabbitmq --restart=always -p 15672:15672 -p 5672:5672 jallytom/rabbitmq
+# create config file
+RUN ["cmd", "/C", "echo [{rabbit, [{loopback_users, []}]}].> C:\\Users\\ContainerAdministrator\\AppData\\Roaming\\RabbitMQ\\rabbitmq.config"]
+
+# run server when container starts - container will shutdown when this process ends
+CMD c:\Users\ContainerAdministrator\scoop\apps\rabbitmq\current\sbin\rabbitmq-server.bat
+
+#docker create --restart always -v D:\data\docker\rabbitmq\db:C:\Users\ContainerAdministrator\appdata\Roaming\RabbitMQ\db --name rabbitmq --restart=always -p 15672:15672 -p 5672:5672 jallytom/rabbitmq
 #docker create --restart always --name rabbitmq --restart=always -p 15672:15672 -p 5672:5672 jallytom/rabbitmq
