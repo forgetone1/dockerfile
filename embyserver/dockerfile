@@ -1,9 +1,4 @@
-# This dockerfile utilizes components licensed by their respective owners/authors.
-# Prior to utilizing this file or resulting images please review the respective licenses at: http://nginx.org/LICENSE
-
-FROM microsoft/windowsservercore
-
-#LABEL Description="Nginx" Vendor=Nginx" Version="1.0.13"
+FROM jallytom/scoop
 
 ADD ["embyserver.tar","c:/"]
 COPY ["VC_redist.x64.exe","c:/"]
@@ -16,7 +11,7 @@ RUN powershell -Command \
 		
 WORKDIR /embyserver
 
-VOLUME C:\\embyserver\\mnt1 C:\\embyserver\\mnt2 C:\\embyserver\\mnt3 C:\\embyserver\\mnt4 C:\\embyserver\\mnt5 C:\\embyserver\\mnt6 c:\\embyserver\\programdata
+VOLUME C:\\embyserver\\mnt1 C:\\embyserver\\mnt2 C:\\embyserver\\mnt3 C:\\embyserver\\mnt4 C:\\embyserver\\mnt5 C:\\embyserver\\mnt6
 
 RUN net user /add embyserver
 RUN net localgroup Administrators embyserver /add

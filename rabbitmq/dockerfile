@@ -5,7 +5,7 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 
 EXPOSE 5672 15672
 
-RUN scoop install vcredist
+RUN scoop install extras/vcredist2013
 RUN scoop install erlang
 
 
