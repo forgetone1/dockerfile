@@ -1,9 +1,14 @@
-FROM jallytom/erlang
+FROM jallytom/scoop
 
 # setup powershell options for RUN commands
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 EXPOSE 5672 15672
+
+RUN scoop install vcredist
+RUN scoop install erlang
+
+
 
 # download and install erlang using silent install option, and remove installer when done
 # download and extract rabbitmq, and remove zip file when done
