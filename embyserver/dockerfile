@@ -3,9 +3,6 @@ FROM jallytom/scoop
 # setup powershell options for RUN commands
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-RUN scoop bucket add forget https://github.com/forgetone1/scoopstore.git 
-
-RUN scoop install extras/vcredist2019
 RUN scoop install forget/embyserver
 
 EXPOSE 8096
@@ -13,11 +10,11 @@ EXPOSE 8096
 VOLUME C:\\embyserver\\mnt1 C:\\embyserver\\mnt2 C:\\embyserver\\mnt3 C:\\embyserver\\mnt4 C:\\embyserver\\mnt5 C:\\embyserver\\mnt6
 
 WORKDIR c:/Users/ContainerAdministrator/scoop/apps/embyserver/current/system
-RUN net user /add embyserver
-RUN net localgroup Administrators embyserver /add
-USER embyserver
+#RUN net user /add embyserver
+#RUN net localgroup Administrators embyserver /add
+#USER embyserver
 
 CMD c:\Users\ContainerAdministrator\scoop\apps\embyserver\current\system\embyserver.exe
 
 
-#docker create --name embyserver -v e:\data\medias\movies:c:\embyserver\mnt1 -v e:\data\medias\pictures:c:\embyserver\mnt2 --restart always -p 8096:8096 jallytom/embyserver
+#docker create --name embyserver -v e:\data\medias\movies:c:\embyserver\mnt1 -v e:\data\medias\pictures:c:\embyserver\mnt2 --restart always --net nat --ip 172.28.32.3 -p 8096:8096 jallytom/emby

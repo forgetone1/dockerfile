@@ -3,4 +3,6 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 RUN powershell -Command Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
 RUN scoop install git
 RUN scoop bucket add extras
+RUN scoop bucket add forget https://github.com/forgetone1/scoopstore.git 
 RUN scoop install aria2
+RUN scoop install extras/vcredist

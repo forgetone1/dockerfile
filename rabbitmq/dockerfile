@@ -5,14 +5,9 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 
 EXPOSE 5672 15672
 
-RUN scoop install extras/vcredist2013
 RUN scoop install erlang
 
 
-
-# download and install erlang using silent install option, and remove installer when done
-# download and extract rabbitmq, and remove zip file when done
-# remove version from rabbitmq folder name
 RUN scoop install rabbitmq
 
 VOLUME C:\\Users\\ContainerAdministrator\\appdata\\Roaming\\RabbitMQ\\db
@@ -26,5 +21,5 @@ RUN ["cmd", "/C", "echo [{rabbit, [{loopback_users, []}]}].> C:\\Users\\Containe
 # run server when container starts - container will shutdown when this process ends
 CMD c:\Users\ContainerAdministrator\scoop\apps\rabbitmq\current\sbin\rabbitmq-server.bat
 
-#docker create --restart always -v D:\data\docker\rabbitmq\db:C:\Users\ContainerAdministrator\appdata\Roaming\RabbitMQ\db --name rabbitmq --restart=always -p 15672:15672 -p 5672:5672 jallytom/rabbitmq
+#docker create --restart always -v D:\data\docker\rabbitmq\db:C:\Users\ContainerAdministrator\appdata\Roaming\RabbitMQ\db --name rabbitmq --restart=always -p 15672:15672 -p 5672:5672 --net nat --ip 172.28.32.2 jallytom/rabbitmq
 #docker create --restart always --name rabbitmq --restart=always -p 15672:15672 -p 5672:5672 jallytom/rabbitmq

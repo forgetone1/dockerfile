@@ -1,18 +1,16 @@
-# This dockerfile utilizes components licensed by their respective owners/authors.
-# Prior to utilizing this file or resulting images please review the respective licenses at: http://nginx.org/LICENSE
-
-FROM microsoft/windowsservercore
-
-#LABEL Description="Nginx" Vendor=Nginx" Version="1.0.13"
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 RUN powershell -Command \
 	$ErrorActionPreference = 'Stop'; \
-	Invoke-WebRequest -Method Get -Uri http://nginx.org/download/nginx-1.9.13.zip -OutFile c:\nginx-1.9.13.zip ; \
-	Expand-Archive -Path c:\nginx-1.9.13.zip -DestinationPath c:\ ; \
-	Remove-Item c:\nginx-1.9.13.zip -Force ; \
-	Remove-Item C:\nginx-1.9.13\conf\* -Force
+	Invoke-WebRequest -Method Get -Uri http://nginx.org/download/nginx-1.17.7.zip -OutFile c:\nginx.zip ; \
+	Expand-Archive -Path c:\nginx.zip -DestinationPath c:\ ; \
+	Remove-Item c:\nginx.zip -Force 
+#	Remove-Item C:\nginx\conf\* -Force
 
-WORKDIR /nginx-1.9.13
+WORKDIR /nginx-1.17.7
 
-VOLUME C:\\nginx-1.9.13\\conf
-CMD ["/nginx-1.9.13/nginx.exe"]
+VOLUME C:\\nginx-1.17.7\\conf
+CMD c:/nginx-1.17.7/nginx.exe
+
+#docker create --name nginx --net nat --ip 172.28.32.4 -v D:\data\docker\nginx:C:\nginx-1.17.7\conf --restart always -p 80:80 jallytom/nginx
+#docker create --name nginx --restart always -p 80:80 jallytom/nginx
