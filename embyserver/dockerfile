@@ -1,20 +1,22 @@
 FROM jallytom/scoop
 
 # setup powershell options for RUN commands
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+RUN powershell -Command \
+	$ErrorActionPreference = 'Stop'; \
+	Invoke-WebRequest -Method Get -Uri https://github.com/MediaBrowser/Emby.Releases/releases/download/4.3.1.0/embyserver-win-x64-4.3.1.0.7z -OutFile c:\embyserver.7z ; \
+	CMD /C "7z x embyserver.7z -oc:\embyserver * -r" ; \
+	Remove-Item c:\embyserver.7z -Force 
 
-RUN scoop install forget/embyserver
 
 EXPOSE 8096
 
-VOLUME C:\\embyserver\\mnt1 C:\\embyserver\\mnt2 C:\\embyserver\\mnt3 C:\\embyserver\\mnt4 C:\\embyserver\\mnt5 C:\\embyserver\\mnt6
+VOLUME C:\\embyserver\\mnt1 C:\\embyserver\\mnt2 C:\\embyserver\\mnt3 C:\\embyserver\\mnt4 C:\\embyserver\\mnt5 C:\\embyserver\\mnt6 C:\\embyserver\\programdata
 
-WORKDIR c:/Users/ContainerAdministrator/scoop/apps/embyserver/current/system
+WORKDIR c:/embyserver
 #RUN net user /add embyserver
 #RUN net localgroup Administrators embyserver /add
 #USER embyserver
 
-CMD c:\Users\ContainerAdministrator\scoop\apps\embyserver\current\system\embyserver.exe
+CMD c:\embyserver\system\embyserver.exe
 
-
-#docker create --name embyserver -v e:\data\medias\movies:c:\embyserver\mnt1 -v e:\data\medias\pictures:c:\embyserver\mnt2 --restart always --net nat --ip 172.28.32.3 -p 8096:8096 jallytom/emby
+#docker create --name embyserver -v e:\data\medias\movies:c:\embyserver\mnt1 -v e:\data\medias\pictures:c:\embyserver\mnt2 -v d:\data\docker\embyserver:c:\Users\ContainerAdministrator\scoop\apps\embyserver\current\system\programdata --restart always -p 8096:8096 jallytom/embyserver

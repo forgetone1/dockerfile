@@ -12,5 +12,5 @@ WORKDIR /nginx-1.17.7
 VOLUME C:\\nginx-1.17.7\\conf
 CMD c:/nginx-1.17.7/nginx.exe
 
-#docker create --name nginx --net nat --ip 172.28.32.4 -v D:\data\docker\nginx:C:\nginx-1.17.7\conf --restart always -p 80:80 jallytom/nginx
-#docker create --name nginx --restart always -p 80:80 jallytom/nginx
+
+#docker create --name nginx -v D:\data\docker\nginx:C:\nginx-1.17.7\conf --restart always -p 80:80 jallytom/nginx
