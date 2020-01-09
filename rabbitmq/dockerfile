@@ -5,9 +5,9 @@ RUN powershell -Command \
     $ErrorActionPreference = 'Stop'; \
     scoop install erlang ; \
     scoop install rabbitmq ; \
-    CMD /C "c:\Users\ContainerAdministrator\scoop\apps\rabbitmq\current\sbin\rabbitmq-plugins.bat enable rabbitmq_management --offline" 
+    c:\Users\ContainerAdministrator\scoop\apps\rabbitmq\current\sbin\rabbitmq-plugins.bat enable rabbitmq_management --offline 
 	
-RUN CMD /C "echo [{rabbit, [{loopback_users, []}]}].> C:\Users\ContainerAdministrator\AppData\Roaming\RabbitMQ\rabbitmq.config"
+RUN echo [{rabbit, [{loopback_users, []}]}].> C:\Users\ContainerAdministrator\AppData\Roaming\RabbitMQ\rabbitmq.config
 	
 EXPOSE 5672 15672
 

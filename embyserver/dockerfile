@@ -19,4 +19,4 @@ WORKDIR c:/embyserver
 
 CMD c:\embyserver\system\embyserver.exe
 
-#docker create --name embyserver -v e:\data\medias\movies:c:\embyserver\mnt1 -v e:\data\medias\pictures:c:\embyserver\mnt2 -v d:\data\docker\embyserver:c:\Users\ContainerAdministrator\scoop\apps\embyserver\current\system\programdata --restart always -p 8096:8096 jallytom/embyserver
+#docker create --name embyserver -v e:\data\medias\movies:c:\embyserver\mnt1 -v e:\data\medias\pictures:c:\embyserver\mnt2 -v d:\data\docker\embyserver:c:\embyserver\programdata --restart always -p 8096:8096 jallytom/embyserver
