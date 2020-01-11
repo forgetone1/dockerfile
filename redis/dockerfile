@@ -1,0 +1,22 @@
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
+
+# setup powershell options for RUN commands
+RUN powershell -Command \
+	$ErrorActionPreference = 'Stop'; \
+	Invoke-WebRequest -Method Get -Uri https://github.com/MicrosoftArchive/redis/releases/download/win-3.2.100/Redis-x64-3.2.100.zip -OutFile c:\redis.zip ; \
+	Expand-Archive -Path c:\redis.zip -DestinationPath c:\redis ; \
+	Remove-Item c:\redis.zip -Force 
+	
+COPY redis.windows.conf /
+
+EXPOSE 6379
+
+VOLUME C:\\data
+
+WORKDIR c:/redis
+
+CMD c:\redis\redis-server.exe c:\redis.windows.conf
+
+#docker create --name redis -v d:\data\docker\redis:c:\data --restart always -p 6379:6379 jallytom/redis
+
+#clean redis-cli keys "meitulu|*" | xargs redis-cli del
