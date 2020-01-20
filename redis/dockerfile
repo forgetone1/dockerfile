@@ -17,6 +17,6 @@ WORKDIR c:/redis
 
 CMD c:\redis\redis-server.exe c:\redis.windows.conf
 
-#docker create --name redis -v d:\data\docker\redis:c:\data --restart always -p 6379:6379 jallytom/redis
+#docker create --name redis -v d:\data\docker\redis:c:\data --restart always -p 6379:6379 jt/redis
 
 #clean redis-cli keys "meitulu|*" | xargs redis-cli del

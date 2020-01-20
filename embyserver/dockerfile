@@ -1,4 +1,4 @@
-FROM jallytom/scoop
+FROM jt/scoop
 
 # setup powershell options for RUN commands
 RUN powershell -Command \
@@ -10,13 +10,13 @@ RUN powershell -Command \
 
 EXPOSE 8096
 
-VOLUME C:\\embyserver\\mnt1 C:\\embyserver\\mnt2 C:\\embyserver\\mnt3 C:\\embyserver\\mnt4 C:\\embyserver\\mnt5 C:\\embyserver\\mnt6 C:\\embyserver\\programdata
+VOLUME C:\\embyserver\\mnt1 C:\\embyserver\\programdata
 
-WORKDIR c:/embyserver
+#WORKDIR c:/embyserver
 #RUN net user /add embyserver
 #RUN net localgroup Administrators embyserver /add
 #USER embyserver
 
 CMD c:\embyserver\system\embyserver.exe
 
-#docker create --name embyserver -v e:\data\medias\movies:c:\embyserver\mnt1 -v e:\data\medias\pictures:c:\embyserver\mnt2 -v d:\data\docker\embyserver:c:\embyserver\programdata --restart always -p 8096:8096 jallytom/embyserver
+#docker create --name embyserver -v e:\data\medias:c:\embyserver\mnt1 -v d:\data\docker\embyserver:c:\embyserver\programdata --restart always -p 8096:8096 jt/embyserver

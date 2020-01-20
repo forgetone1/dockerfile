@@ -1,4 +1,4 @@
-FROM jallytom/scoop
+FROM jt/scoop
 
 # setup powershell options for RUN commands
 RUN powershell -Command \
@@ -15,4 +15,4 @@ VOLUME C:\\Users\\ContainerAdministrator\\appdata\\Roaming\\RabbitMQ\\db
 
 CMD c:\Users\ContainerAdministrator\scoop\apps\rabbitmq\current\sbin\rabbitmq-server.bat
 
-#docker create --restart always -v D:\data\docker\rabbitmq\db:C:\Users\ContainerAdministrator\appdata\Roaming\RabbitMQ\db --name rabbitmq --restart=always -p 15672:15672 -p 5672:5672 jallytom/rabbitmq
+#docker create --restart always -v D:\data\docker\rabbitmq\db:C:\Users\ContainerAdministrator\appdata\Roaming\RabbitMQ\db --name rabbitmq --restart=always -p 15672:15672 -p 5672:5672 jt/rabbitmq

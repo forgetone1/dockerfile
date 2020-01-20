@@ -25,6 +25,6 @@ RUN c:\sqlserver\setup.exe /CONFIGURATIONFILE="c:\sqlserver\ConfigurationFile.in
 HEALTHCHECK CMD [ "sqlcmd", "-Q", "select 1" ]
 CMD .\start -sa_password $env:sa_password -ACCEPT_EULA $env:ACCEPT_EULA
 
-#docker create --name sqlserver --restart always -p 1433:1433 -e sa_password=forget!800622 -e ACCEPT_EULA=Y -v d:\data\docker\sqlserver:c:\data jallytom/sqlserver
+#docker create --name sqlserver --restart always -p 1433:1433 -e sa_password=forget!800622 -e ACCEPT_EULA=Y -v d:\data\docker\sqlserver:c:\data jt/sqlserver
 
 

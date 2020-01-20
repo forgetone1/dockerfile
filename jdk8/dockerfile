@@ -1,14 +1,13 @@
 FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 # setup powershell options for RUN commands
-ENV JAVA_HOME="C:\Program Files\Java\jdk1.8.0_221"
+ENV JAVA_HOME="C:\Program Files\Java\jdk1.8.0_241"
 
-COPY jdk-8u231-windows-x64.exe /
+COPY jdk-8u241-windows-x64.exe /
 
-RUN start /w c:\jdk-8u231-windows-x64.exe /s ADDLOCAL="ToolsFeature,SourceFeature,PublicjreFeature"
-RUN del jdk-8u231-windows-x64.exe 
+RUN start /w c:\jdk-8u241-windows-x64.exe /s ADDLOCAL="ToolsFeature,SourceFeature,PublicjreFeature"
+RUN del jdk-8u241-windows-x64.exe 
 RUN setx path "%path%;%JAVA_HOME%\bin"
-
-#docker create --name jdk8 --restart always jallytom/jdk8
+#docker create --name jdk8 --restart always jt/jdk8
 
 
